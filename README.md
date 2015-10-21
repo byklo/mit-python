@@ -1,2 +1,2 @@
 # mit-python
-6.006 Practice
+mit 6.006 practice in python
