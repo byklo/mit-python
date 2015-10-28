@@ -13,8 +13,9 @@ def buildMaxHeap(a):
 # maxHeapify
 #	assumes left(i) and right(i) are CORRECT max heaps
 #	the violation is assumed to be at i
-def maxHeapify(a, i):
-	maxIndex = len(a) - 1
+def maxHeapify(a, i, maxIndex=None):
+	if not maxIndex:
+		maxIndex = len(a) - 1
 	l = left(i)
 	r = right(i)
 	largest = i
@@ -26,7 +27,7 @@ def maxHeapify(a, i):
 		temp = a[i]
 		a[i] = a[largest]
 		a[largest] = temp
-		maxHeapify(a, largest)
+		maxHeapify(a, largest, maxIndex)
 	else:
 		# no violation at a[i]
 		# OR
@@ -50,12 +51,20 @@ def left(i):
 def right(i):
 	return i * 2 + 1
 
-# TODO - heapSort
+# heapSort
 def heapSort(a):
 	heap = buildMaxHeap(a)
 	lastIndex = len(heap) - 1
+	while lastIndex > 1:
+		swap(heap, 1, lastIndex)
+		lastIndex -= 1
+		maxHeapify(heap, 1, lastIndex)
+	return heap
 
-
+def swap(a, i, j):
+	temp = a[i]
+	a[i] = a[j]
+	a[j] = temp
 
 # to satisfy the heap indices, assign None to a[0], heap starts at a[1]
 a = [ None ]
@@ -64,3 +73,6 @@ print a
 
 heapd = buildMaxHeap(a)
 print heapd, "is a heap" if isHeap(heapd) else "is not a heap"
+
+sortd = heapSort(a)
+print sortd
