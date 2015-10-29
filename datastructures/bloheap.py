@@ -1,30 +1,23 @@
-# interface
-# constructor Heap(list<int>)
-# sortedList sort()
-# void insert(int)
-# list = [ 3, 5, 5, 7, 1, 4, 8, 9, 2 ]
-# heap = Heap(list)
-# sortedList = heap.sort()
-# heap.insert(28)
-# heap.checkMax()
-# heap.popMax()
-
-import random
-
 class Heap:
 	'''
 	This is a heap class definition
 	'''
 
 	def __init__(self, a):
-		self.array = [None]
+		self.array = [ None ]
 		self.array.extend(list(a))
 		for i in xrange((len(a) / 2), 0, -1):
 			self.maxHeapify(i)
 
+	def __str__(self):
+		return self.array[1:].__str__()
+
 	def insert(self, newEntry):
-		self.array.append(newEntry)
-		self.percUp(len(self.array) - 1)
+		if isinstance(newEntry, int):
+			self.array.append(newEntry)
+			self.percUp(len(self.array) - 1)
+		else:
+			print "ERROR: Not int. Could not insert entry ->", newEntry
 
 	def checkMax(self):
 		return self.array[1]
@@ -34,30 +27,32 @@ class Heap:
 		self.swap(1, len(self.array) - 1)
 		del self.array[len(self.array) - 1]
 		self.maxHeapify(1)
+		return max
 
 	def sort(self):
-		pass
+		s = list(self.array)
+		maxIndex = len(s) - 1
+		while maxIndex > 1:
+			self.swap(1, maxIndex, s)
+			maxIndex -= 1
+			self.maxHeapify(1, maxIndex=maxIndex, a=s)
+		print s[1:]
 	
-	def prnt(self):
-		print self.array[1:]
-	
-	def maxHeapify(self, i, maxIndex=None):
-		a = self.array
+	def maxHeapify(self, i, maxIndex=None, a=None):
+		array = a if a else self.array
 		if not maxIndex:
-			maxIndex = len(a) - 1
+			maxIndex = len(array) - 1
 		l, r = self.left(i), self.right(i)
 		largest = i
-		if l <= maxIndex and a[i] < a[l]:
+		if l <= maxIndex and array[i] < array[l]:
 			largest = l
-		if r <= maxIndex and a[largest] < a[r]:
+		if r <= maxIndex and array[largest] < array[r]:
 			largest = r
 		if largest != i:
-			self.swap(i, largest)
-			self.maxHeapify(largest, maxIndex)
-		else:
-			return
+			self.swap(i, largest, array)
+			self.maxHeapify(largest, maxIndex, array)
 
-	def percUp(self, i):
+	def percUp(self, i):	
 		a = self.array
 		p = self.parent(i)
 		while p > 0:
@@ -79,10 +74,11 @@ class Heap:
 				return False
 		return True
 
-	def swap(self, i, j):
-		temp = self.array[i]
-		self.array[i] = self.array[j]
-		self.array[j] = temp
+	def swap(self, i, j, a=None):
+		array = a if a else self.array
+		temp = array[i]
+		array[i] = array[j]
+		array[j] = temp
 		return
 
 	def left(self, i):
@@ -93,10 +89,3 @@ class Heap:
 	
 	def parent(self, i):
 		return i / 2
-
-a = random.sample(xrange(0, 30), 8)
-heap = Heap(a)
-heap.prnt()
-print "is heap?", heap.isHeap()
-heap.insert(40)
-heap.prnt()
