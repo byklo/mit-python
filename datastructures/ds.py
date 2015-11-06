@@ -1,21 +1,34 @@
-from bloheap import Heap
+from bloheap import *
+from bst import *
 import random
 
-a = random.sample(xrange(0, 50), 20)
-h = Heap(a)
+# INIT
+#a = random.sample(xrange(0, 50), 20)
+a = random.sample(xrange(0, 50), 10)
 
-print h
-print h.isHeap()
+# HEAP
+# h = Heap(a)
+# 
+# print h
+# print h.isHeap()
+# 
+# h.insert(75)
+# 
+# print h
+# print h.checkMax()
+# 
+# print "just popped", h.popMax()
+#
+# print h
+# print h.isHeap()
+# 
+# h.sort()
 
-h.insert(75)
+# BST
+tree = BST()
+for i in a:
+	tree.insert(i)
 
-print h
+tree.info()
 
-print h.checkMax()
-
-print "just popped", h.popMax()
-
-print h
-print h.isHeap()
-
-h.sort()
+print tree.nodesLessThan(20)
