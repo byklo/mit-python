@@ -82,17 +82,17 @@ timer = Timer()
 # print a
 
 timer.start("naive")
-print naive(a)
+naive(a)
 timer.end()
 
 timer.start("rs_preprocess")
-print rs_preprocess(a)
+rs_preprocess(a)
 timer.end()
 
 timer.start("recursive")
-print recursive(a)
+recursive(a)
 timer.end()
 
 timer.start("linear")
-print linear(a)
+linear(a)
 timer.end()
