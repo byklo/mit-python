@@ -71,8 +71,8 @@ def linear(a):
 # O(n)
 	max_suffix = 0
 	cur_max = 0
-	for i in xrange(len(a)):
-		max_suffix = max(0, max_suffix + a[i])
+	for x in a:
+		max_suffix = max(0, max_suffix + x)
 		cur_max = max(cur_max, max_suffix)
 	return cur_max
 
@@ -82,17 +82,17 @@ timer = Timer()
 # print a
 
 timer.start("naive")
-naive(a)
+print naive(a)
 timer.end()
 
 timer.start("rs_preprocess")
-rs_preprocess(a)
+print rs_preprocess(a)
 timer.end()
 
 timer.start("recursive")
-recursive(a)
+print recursive(a)
 timer.end()
 
 timer.start("linear")
-linear(a)
+print linear(a)
 timer.end()
