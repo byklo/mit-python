@@ -18,12 +18,12 @@ class AdjacencyList(object):
 	def __init__(self):
 		self.nodes = []
 	
-	def add_node(self, value):
-		if not self.has_node(value):
+	def addNode(self, value):
+		if not self.hasNode(value):
 			self.nodes.append(LinkedListNode(value))
 		return
 	
-	def add_edge(self, v1, v2):
+	def addEdge(self, v1, v2):
 		# assume nodes exist
 		count = 2
 		for node in self.nodes:
@@ -42,7 +42,7 @@ class AdjacencyList(object):
 				break
 		return
 	
-	def remove_node(self, rm_value):
+	def removeNode(self, rm_value):
 		self.nodes.remove(LinkedListNode(rm_value))
 		for node in self.nodes:
 			cur = node
@@ -53,7 +53,7 @@ class AdjacencyList(object):
 		return
 
 
-	def remove_edge(self, v1, v2):
+	def removeEdge(self, v1, v2):
 		for node in self.nodes:
 			if node.eq(v1):
 				temp = node
@@ -70,10 +70,10 @@ class AdjacencyList(object):
 		return
 
 	
-	def has_node(self, value):
+	def hasNode(self, value):
 		return LinkedListNode(value) in self.nodes
 	
-	def has_edge(self, v1, v2):
+	def hasEdge(self, v1, v2):
 		for node in self.nodes:
 			if node.eq(v1):
 				temp = node
@@ -83,13 +83,18 @@ class AdjacencyList(object):
 					temp = temp.next
 		return False
 
-g = AdjacencyList()
-g.add_node(5)
-g.add_node(7)
-g.add_edge(5, 7)
-print g.has_node(7)
-print g.has_edge(8, 7)
-print g.has_edge(7, 5)
+	def getNodes(self):
+		nodes = [ n.value for n in self.nodes ]
+		return nodes
+
+if __name__ == "__main__":
+	g = AdjacencyList()
+	g.addNode(5)
+	g.addNode(7)
+	g.addEdge(5, 7)
+	print g.hasNode(7)
+	print g.hasEdge(8, 7)
+	print g.hasEdge(7, 5)
 
 
 
